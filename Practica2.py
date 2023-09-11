@@ -1,4 +1,7 @@
 import csv
+from datetime import datetime
+
+datos = []
 
 def limpieza_de_datos():
    
@@ -33,7 +36,19 @@ def limpieza_de_datos():
 
                     distancia.append(int(row[13]))
                     tiempo.append(str(row[8] + ':' + row[12]))
-                    tipoTiro.append(row[15])
+
+                    if(str(row[15]).find('3PT Field Goal')):
+
+                        tipoTiro.append(3)
+
+                    elif(str(row[15]).find('2PT Field Goal')):
+
+                        tipoTiro.append(2)
+
+                    else:
+
+                        tipoTiro.append(0)
+
                     fechaJuego.append(row[21])
                     
                     if(str(row[22]).find('@') > 0):
