@@ -1,5 +1,4 @@
 import pandas as pd
-from tabulate import tabulate
 import requests
 import io
 
@@ -11,3 +10,5 @@ def get_csv_from_url(url: str) -> pd.DataFrame:
 df = get_csv_from_url("https://raw.githubusercontent.com/Worm4047/kobe-bryant-shot-selection/master/data.csv")
 
 df.to_csv("kobe_shots.csv", index=False)
+
+print("DataSet Descargado")

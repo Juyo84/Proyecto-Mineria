@@ -1,48 +1,55 @@
 import csv
 
-datos = []
-
 def limpieza_de_datos():
    
     distancia = []
-    acierto = []
+    tiempo = []
     tipoTiro = []
     fechaJuego = []
     lugar = []
     rival = []
+
+    nombreColumna = True
 
     with open('kobe_shots.csv', 'rt') as f:
       
         reader = csv.reader(f)
 
         for row in reader:
-      
-            if(len(row)>0):
-      
-                if(row[0] != '' and row[1] != ''):
-                    
-                    distancia.append(row[0])
-                    
-                    acierto.append(row[1])
-                    
-                    if(row[2] == '2PT Field Goal'):
+            
+            if(len(row) > 0):
+                
+                if(nombreColumna == True):
 
-                        tipoTiro.append('2')
+                    distancia.append(row[13])
+                    tiempo.append(row[8])
+                    tipoTiro.append(row[15])
+                    fechaJuego.append(row[21])
+                    lugar.append(row[22])
+                    rival.append(row[23])
+                    nombreColumna = False
+   
+                else:
 
-                    if(row[2] == '3PT Field Goal'):
-
-                        tipoTiro.append('3')
-
-                    fechaJuego.append(row[3])
+                    distancia.append(int(row[13]))
+                    tiempo.append(str(row[8] + ':' + row[12]))
+                    tipoTiro.append(row[15])
+                    fechaJuego.append(row[21])
                     
-                    if(row[4].find(' @ ')):
+                    if(str(row[22]).find('@') > 0):
 
                         lugar.append('Visitante')
-          
-                    if(row[4].find(' vs. ')):
+
+                    elif(str(row[22]).find('vs.') > 0):
 
                         lugar.append('Casa')
 
-                    rival.append(row[5])
+                    else:
 
-    return(list([distancia, acierto, tipoTiro, fechaJuego, lugar, rival]))
+                        lugar.append('Indefinido')
+
+                    rival.append(row[23])
+                    
+    return(list([distancia, tiempo, tipoTiro, fechaJuego, lugar, rival]))
+
+print(limpieza_de_datos())
