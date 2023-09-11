@@ -1,18 +1,11 @@
 import csv
-from datetime import datetime
-
-datos = []
+import pandas as pd
 
 def limpieza_de_datos():
-   
-    distancia = []
-    tiempo = []
-    tipoTiro = []
-    fechaJuego = []
-    lugar = []
-    rival = []
 
     nombreColumna = True
+
+    data = []
 
     with open('kobe_shots.csv', 'rt') as f:
       
@@ -24,47 +17,40 @@ def limpieza_de_datos():
                 
                 if(nombreColumna == True):
 
-                    distancia.append(row[13])
-                    tiempo.append(row[8])
-                    tipoTiro.append(row[15])
-                    fechaJuego.append(row[21])
-                    lugar.append(row[22])
-                    rival.append(row[23])
+                    data.append([row[13], row[8], row[15], row[21], row[22], row[23]])
                     nombreColumna = False
-   
+                    
                 else:
 
-                    distancia.append(int(row[13]))
-                    tiempo.append(str(row[8] + ':' + row[12]))
+                    if(str(row[15]).find('3PT Field Goal') > -1):
 
-                    if(str(row[15]).find('3PT Field Goal')):
+                        tipoTiro = 3
 
-                        tipoTiro.append(3)
+                    elif(str(row[15]).find('2PT Field Goal') > -1):
 
-                    elif(str(row[15]).find('2PT Field Goal')):
-
-                        tipoTiro.append(2)
+                        tipoTiro = 2
 
                     else:
 
-                        tipoTiro.append(0)
-
-                    fechaJuego.append(row[21])
+                        tipoTiro = 0
                     
-                    if(str(row[22]).find('@') > 0):
+                    if(str(row[22]).find('@') > -1):
 
-                        lugar.append('Visitante')
+                        lugar = 'Visitante'
 
-                    elif(str(row[22]).find('vs.') > 0):
+                    elif(str(row[22]).find('vs.') > -1):
 
-                        lugar.append('Casa')
+                        lugar = 'Casa'
 
                     else:
 
-                        lugar.append('Indefinido')
+                        lugar = 'Indefinido'
 
-                    rival.append(row[23])
-                    
-    return(list([distancia, tiempo, tipoTiro, fechaJuego, lugar, rival]))
+                    data.append([int(row[13]), str(row[8] + ':' + row[12]), tipoTiro, row[21], lugar, row[23]])
+
+    return(data)
+
+df = pd.DataFrame(limpieza_de_datos())
+df.to_csv("Kobe_shots_cleanData.csv", index=False, header=False)
 
 print(limpieza_de_datos())

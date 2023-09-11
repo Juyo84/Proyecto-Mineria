@@ -1,5 +1,6 @@
-import Practica2 as dataSet
+import Practica2 as datos
 
-dataSet.limpieza_de_datos()
+dataset = datos.limpieza_de_datos()
 
-#min, max, moda, media, sumas total
+#min, max, moda, media, total, conteo
+
