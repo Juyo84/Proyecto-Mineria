@@ -17,7 +17,6 @@ def limpieza_de_datos():
                 
                 if(nombreColumna == True):
 
-                    data.append([row[13], row[8], row[15], row[21], row[22], row[23]])
                     nombreColumna = False
                     
                 else:
@@ -50,7 +49,7 @@ def limpieza_de_datos():
 
     return(data)
 
-df = pd.DataFrame(limpieza_de_datos())
-df.to_csv("Kobe_shots_cleanData.csv", index=False, header=False)
+df = pd.DataFrame(limpieza_de_datos(), columns=('shot_distance','minutes_remaining','shot_type','game_date','matchup','opponent'))
+df.to_csv("Kobe_shots_cleanData.csv", index=False)
 
-print(limpieza_de_datos())
+print(df)
