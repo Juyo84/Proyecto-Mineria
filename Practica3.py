@@ -2,37 +2,39 @@ import pandas as pd
 
 df = pd.read_csv('Kobe_shots_cleanData.csv')
 
-def cantidad_Tiros_Por_Oponente():
+def Oponente_TipoTiro():
 
-    resultado = df.groupby('opponent')['shot_type'].count()
-    print(resultado)
+    resultado = df.groupby('opponent')['shot_type'].agg(['count', 'mean', 'min', 'max', 'std', 'var'])
+    resultado.to_csv('CSV_P3/Kobe_shots_TipoTiro_Oponente.csv')
 
-def cantidad_Tiros_Por_Partido():
+def Fecha_TipoTiro():
 
-    resultado = df.groupby('game_date')['shot_type'].count()
-    print(resultado)
+    resultado = df.groupby('game_date')['shot_type'].agg(['count', 'mean', 'min', 'max', 'std', 'var'])
+    resultado.to_csv('CSV_P3/Kobe_shots_Fecha_TipoTiro.csv')
 
-def mayor_Distancia_Tiro_Por_Oponente():
+def Minutos_TipoTiro():
 
-    resultado = df.groupby('opponent')['shot_distance'].max()
-    print(resultado)
+    resultado = df.groupby('minutes_remaining')['shot_type'].agg(['count', 'mean', 'min', 'max', 'std', 'var'])
+    resultado.to_csv('CSV_P3/Kobe_shots_Minutos_TipoTiro.csv')
 
-def cantidad_Partidos_Por_Emparejamiento():
+def Minutos_DistanciaTiro():
 
-    resultado = df.groupby('matchup')['game_date'].count()
-    print(resultado)
+    resultado = df.groupby('minutes_remaining')['shot_distance'].agg(['count', 'mean', 'min', 'max', 'std', 'var'])
+    resultado.to_csv('CSV_P3/Kobe_shots_Minutos_DistanciaTiro.csv')
 
-def mayor_Distancia_Tiro_Por_Partido():
+def Fecha_DistanciaTiro():
 
-    resultado = df.groupby('game_date')['shot_distance'].max()
-    print(resultado)
-    
-def minima_Distancia_Tiro_Por_Partido():
+    resultado = df.groupby('game_date')['shot_distance'].agg(['count', 'mean', 'min', 'max', 'std', 'var'])
+    resultado.to_csv('CSV_P3/Kobe_shots_Fecha_DistanciaTiro.csv')
 
-    resultado = df.groupby('game_date')['shot_distance'].min()
-    print(resultado)
+def Oponente_DistanciaTiro():
 
-def Cantidad_Tiros_Por_Tiempo_Juego():
+    resultado = df.groupby('opponent')['shot_distance'].agg(['count', 'mean', 'min', 'max', 'std', 'var'])
+    resultado.to_csv('CSV_P3/Kobe_shots_Oponente_DistanciaTiro.csv')
 
-    resultado = df.groupby('minutes_remaining')['shot_type'].count()
-    print(resultado)
+Oponente_DistanciaTiro()
+Oponente_TipoTiro()
+Fecha_TipoTiro()
+Fecha_DistanciaTiro()
+Minutos_TipoTiro()
+Minutos_DistanciaTiro()
