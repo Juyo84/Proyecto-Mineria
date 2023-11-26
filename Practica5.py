@@ -21,9 +21,9 @@ def anova(df_aux: pd.DataFrame, str_ols: str):
 
 def anova_1():
 
-    df_aux = df.groupby(["matchup", "opponent"]).agg({"shot_distance": "count"})
+    df_aux = df.groupby(["shot_zone_area", "action_type"]).agg({"shot_distance": "mean"})
     df_aux.reset_index(inplace=True)
-    anova(df_aux, "shot_distance ~ opponent + matchup")
+    anova(df_aux, "shot_distance ~ shot_zone_area + action_type")
 
-#ANOVA ENTRE OPONENTES Y EMPAREJAMIENTO DE ACUERDO A LA DISTANCIA CADA TIRO
+#ANOVA ENTRE AREA DEL TIRO Y TIPO DE TIRO DE ACUERDO A LA DISTANCIA
 anova_1()

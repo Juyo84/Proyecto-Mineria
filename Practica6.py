@@ -4,7 +4,8 @@ import numbers
 import matplotlib.pyplot as plt
 
 df = pd.read_csv('Kobe_shots_cleanData.csv')
-df_aux = df.groupby("opponent").agg({"shot_distance": "sum"})
+df = df[df["shot_made_flag"] == 1.0]
+df_aux = df.groupby("opponent").agg({"shot_type": "sum"})
 df_aux.reset_index(inplace=True)
 
 def transform_variable(df: pd.DataFrame, x: str) -> pd.Series:
@@ -29,9 +30,9 @@ def progresion_lineal(df: pd.DataFrame, x: str, y:str) -> None:
     df.plot(x=x, y=y, kind='scatter')
     plt.plot(df_aux[x], [coef.values[1] + x + coef.values[0] for _, x in fixed_x.items()], color='red')
     plt.xticks(rotation=90)
-    
-    plt.savefig('Graficas_P6/PL_Opponent_ShotDistance.png')
+    plt.title('Puntos totales contra cada equipo')
+    plt.savefig('Graficas_P6/PL_Oponente_PuntosTotales.png')
     plt.close()
 
 #PROGESION LINEAL ENTRE OPONENTE Y LA DISTANCIA DE TIRO
-progresion_lineal(df_aux, "opponent", "shot_distance")
+progresion_lineal(df_aux, "opponent", "shot_type")
