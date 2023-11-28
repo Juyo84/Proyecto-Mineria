@@ -11,11 +11,13 @@ def boxplot_Shot_Distance_Opponent():
     plt.savefig("Graficas_P4/Bp_Opponent_ShotDistance.png")
 
 def pie_Opponent():
-    
-    df_aux = df.groupby('opponent')['opponent'].value_counts()
-    df_aux.plot.pie(y='opponent', figsize=(10,10), autopct="%1.0f%%")
 
-    plt.savefig("Graficas_P4/p_Opponent.png")
+    datos = df[(df["game_date"] >= '1999-12-01') & (df["game_date"] < '2002-10-29')]
+    df_aux = datos.groupby('action_type').size()
+    df_aux.plot.pie(figsize=(10, 10), autopct="%1.0f%%")
+    plt.title("Distribucion de Tipos de tiros en 3 temporadas")
+    plt.savefig("Graficas_P4/p_ActionType_Date.png")
+
 
 def pie_ZonaTiro():
     
