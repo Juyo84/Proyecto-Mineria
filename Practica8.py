@@ -3,10 +3,10 @@ import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 
 datos = pd.read_csv('Kobe_shots_cleanData.csv')
-datos = datos[(datos["shot_type"] == 3)]
-df = datos[["shot_distance", "minutes_remaining"]]
+datos_aux = datos[(datos["shot_type"] == 3)]
+df = datos_aux[["shot_distance", "minutes_remaining"]]
 
-def Kmeans():
+def Kmeans1():
 
     for i in range(1,6):
 
@@ -19,4 +19,4 @@ def Kmeans():
         plt.savefig("Graficas_P8/K = " + str(i) + ".png")
         plt.clf()
 
-Kmeans()
+Kmeans1()

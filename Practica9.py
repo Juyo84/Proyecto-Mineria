@@ -4,13 +4,13 @@ import matplotlib.pyplot as plt
 
 datos = pd.read_csv('Kobe_shots_cleanData.csv')
 
-def prediccion_tirosAnotados_Lesion():
+def prediccion_tirosAnotados_PreLesion():
 
     datos['game_date'] = pd.to_datetime(datos['game_date']).dt.year
 
     c1 = datos["shot_made_flag"] == 1
-    c2 = datos["game_date"] >= 1996
-    c3 = datos["game_date"] <= 2006
+    c2 = datos["game_date"] >= 2006
+    c3 = datos["game_date"] <= 2013
 
     dfGroup = datos[c1 & c2 & c3]
     
@@ -31,4 +31,4 @@ def prediccion_tirosAnotados_Lesion():
     plt.title('Prediccion de puntos por temporada')
     plt.savefig("Graficas_P9/Prediccion_Puntos_Temporada.png")
 
-prediccion_tirosAnotados_Lesion()
+prediccion_tirosAnotados_PreLesion()

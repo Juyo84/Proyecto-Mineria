@@ -17,17 +17,19 @@ def pie_Opponent():
 
     plt.savefig("Graficas_P4/p_Opponent.png")
 
-def pie_ActionType():
+def pie_ZonaTiro():
     
-    df_aux = df.groupby('action_type')['action_type'].value_counts()
-    df_aux.plot.pie(y='Movimiento', figsize=(10,10), autopct="%1.0f%%")
+    grouped = df.groupby(['shot_zone_area', 'shot_type']).size().unstack()
 
-    plt.savefig("Graficas_P4/p_Movimiento.png")
+    grouped.plot(kind='barh', stacked=True, figsize=(10, 8))
+    plt.xlabel('Cantidad')
+    plt.ylabel('Zona de tiro')
+    plt.title('Distribucion de los tiros de acuerdo a la zona')
+    
+    plt.savefig("Graficas_P4/p_ZonaTiro.png")
 
 boxplot_Shot_Distance_Opponent()
 plt.gcf().clear()
 pie_Opponent()
 plt.gcf().clear()
-pie_ActionType()
-plt.gcf().clear()
-pie_ShotZone()
+pie_ZonaTiro()
