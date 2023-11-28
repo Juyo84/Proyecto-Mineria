@@ -15,7 +15,7 @@ def Kmeans():
         plt.scatter(x=df["shot_distance"], y=df["minutes_remaining"], c=kmeans.labels_)
         plt.xlabel('Distancia de tiro')
         plt.ylabel('Minutos restantes')
-        plt.title("K = " + str(i))
+        plt.title("Tiros de 3 puntos\nK = " + str(i))
         plt.savefig("Graficas_P8/K = " + str(i) + ".png")
         plt.clf()
 
