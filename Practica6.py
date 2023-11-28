@@ -4,7 +4,7 @@ import numbers
 import matplotlib.pyplot as plt
 
 df = pd.read_csv('Kobe_shots_cleanData.csv')
-df = df[df["shot_made_flag"] == 1.0]
+df = df[df["shot_made_flag"] == 1]
 df_aux = df.groupby("opponent").agg({"shot_type": "sum"})
 df_aux.reset_index(inplace=True)
 

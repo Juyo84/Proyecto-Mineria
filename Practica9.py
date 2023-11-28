@@ -9,8 +9,8 @@ def prediccion_tirosAnotados_Lesion():
     datos['game_date'] = pd.to_datetime(datos['game_date']).dt.year
 
     c1 = datos["shot_made_flag"] == 1
-    c2 = datos["game_date"] >= 2013
-    c3 = datos["game_date"] <= 2016
+    c2 = datos["game_date"] >= 1996
+    c3 = datos["game_date"] <= 2006
 
     dfGroup = datos[c1 & c2 & c3]
     
@@ -19,16 +19,16 @@ def prediccion_tirosAnotados_Lesion():
 
     model = smf.ols('shot_type ~ game_date', db)
     results = model.fit()
-    alpha = .05
+    alpha = .1
     predictions = results.get_prediction(db).summary_frame(alpha)
 
     plt.scatter(db['game_date'], db['shot_type'])
-    plt.plot(db['game_date'], predictions['mean'], color='red')
+    plt.plot(db['game_date'], predictions['mean'], color='purple')
     plt.fill_between(db['game_date'], predictions['obs_ci_lower'], predictions['obs_ci_upper'], alpha=.1)
     
     plt.xlabel('Fecha')
     plt.ylabel('Total Puntos')
-    plt.title('Prediccion de puntos')
-    plt.savefig("Graficas_P9/Prediccion_Puntos_Lesion.png")
+    plt.title('Prediccion de puntos por temporada')
+    plt.savefig("Graficas_P9/Prediccion_Puntos_Temporada.png")
 
 prediccion_tirosAnotados_Lesion()
